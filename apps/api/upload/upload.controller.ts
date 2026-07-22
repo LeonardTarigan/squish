@@ -17,7 +17,7 @@ uploadController.post(
 
             return c.json({
                 message: 'Upload successful, processing started',
-                jobId
+                data: { jobId }
             })
         } catch (error) {
             logger.error({ err: error }, 'Upload failed')
