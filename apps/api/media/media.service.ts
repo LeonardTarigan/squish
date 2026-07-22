@@ -19,6 +19,12 @@ const mediaService = {
         logger.info({ jobId }, 'Job dispatched to queue')
 
         return jobId
+    },
+    getProcessedImage: async (jobId: string) => {
+        const filePath = path.join(process.cwd(), '../../uploads/processed', `${jobId}.webp`);
+        const file = Bun.file(filePath);
+
+        return (await file.exists()) ? file : null;
     }
 }
 
