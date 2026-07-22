@@ -15,7 +15,20 @@ const mediaService = {
         await Bun.write(inputPath, file)
         logger.info({ jobId, inputPath }, 'File saved successfully')
 
-        await queueInstance.add(jobName, { jobId, inputPath })
+        await queueInstance.add(
+            jobName,
+            { jobId, inputPath },
+            { 
+                jobId,
+                removeOnComplete: {
+                    age: 3600,
+                    count: 100
+                },
+                removeOnFail: {
+                    age: 24 * 3600
+                }
+            }
+        )
         logger.info({ jobId }, 'Job dispatched to queue')
 
         return jobId
