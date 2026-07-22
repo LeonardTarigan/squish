@@ -1,0 +1,19 @@
+{
+  "name": "api",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun run --hot index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "dependencies": {
+    "@squish/logger": "workspace:*",
+    "@squish/types": "workspace:*",
+    "bullmq": "^5.80.10",
+    "hono": "^4.12.31",
+    "hono-pino": "^0.10.3"
+  }
+}
