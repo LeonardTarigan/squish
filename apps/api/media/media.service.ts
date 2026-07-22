@@ -3,8 +3,8 @@ import { randomUUID } from 'node:crypto'
 import path from 'node:path'
 import queueInstance from "../common/instance/queue.instance"
 
-const uploadService = {
-    process: async (file: File): Promise<string> => {
+const mediaService = {
+    uploadImageFile: async (file: File): Promise<string> => {
         const jobId = randomUUID()
         const jobName = 'compress-image'
 
@@ -22,4 +22,4 @@ const uploadService = {
     }
 }
 
-export default uploadService
+export default mediaService

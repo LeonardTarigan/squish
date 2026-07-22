@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
-import { uploadController } from './upload/upload.controller'
+import { mediaController } from './media/media.controller'
 
 export const apiRouter = new Hono()
 
-apiRouter.route('/upload', uploadController)
+apiRouter.route('/media', mediaController)

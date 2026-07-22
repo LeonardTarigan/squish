@@ -1,19 +1,19 @@
 import { logger } from '@squish/logger'
 import { Hono } from 'hono'
 import requestValidator from '../common/validator/request.validator'
-import { fileUploadSchema } from './schema/file-upload.schema'
-import uploadService from './upload.service'
+import { fileUploadSchema } from '../media/schema/file-upload.schema'
+import mediaService from './media.service'
 
-export const uploadController = new Hono()
+export const mediaController = new Hono()
 
-uploadController.post(
-    '/',
+mediaController.post(
+    '/upload',
     requestValidator('form', fileUploadSchema),
     async (c) => {
         try {
             const { image } = c.req.valid('form')
 
-            const jobId = await uploadService.process(image)
+            const jobId = await mediaService.uploadImageFile(image)
 
             return c.json({
                 message: 'Upload successful, processing started',
