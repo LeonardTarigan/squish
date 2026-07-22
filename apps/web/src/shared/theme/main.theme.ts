@@ -1,4 +1,4 @@
-import { createTheme } from "@mantine/core";
+import { Button, createTheme } from "@mantine/core";
 import primaryColor from "./colors/primary.color";
 
 const mainTheme = createTheme({
@@ -6,7 +6,21 @@ const mainTheme = createTheme({
     colors: {
         primary: primaryColor
     },
-    primaryColor: 'primary'
+    primaryColor: 'primary',
+    white: '#FAF9F6',
+    black: '#2B2B2B',
+    components: {
+        Button: Button.extend({
+            defaultProps: {
+                bdrs: 'lg'
+            },
+            styles: {
+                root: {
+                    cornerShape: 'squircle'
+                }
+            }
+        })
+    }
 })
 
 export default mainTheme
