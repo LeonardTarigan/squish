@@ -1,0 +1,29 @@
+{
+  "name": "squish",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devEngines": {
+    "packageManager": {
+      "name": "bun",
+      "version": "1.3.0"
+    }
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "infra:up": "docker compose up -d",
+    "infra:down": "docker compose down"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "turbo": "^2.10.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
