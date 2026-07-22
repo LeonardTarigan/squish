@@ -10,10 +10,12 @@
     "@types/bun": "latest"
   },
   "dependencies": {
+    "@hono/zod-validator": "^0.9.0",
     "@squish/logger": "workspace:*",
     "@squish/types": "workspace:*",
     "bullmq": "^5.80.10",
     "hono": "^4.12.31",
-    "hono-pino": "^0.10.3"
+    "hono-pino": "^0.10.3",
+    "zod": "^4.4.3"
   }
 }

@@ -5,14 +5,9 @@ import path from 'node:path'
 
 const uploadService = {
     process: async (file: File): Promise<string> => {
-        if (file.size > 20971520) {
-            throw new Error('File exceeds the 20MB limit')
-        }
-
         const jobId = randomUUID()
         const extension = file.name.split('.').pop() || 'jpg'
         const filename = `${jobId}.${extension}`
-
         const inputPath = path.join(process.cwd(), '../../uploads/raw', filename)
 
         await Bun.write(inputPath, file)
