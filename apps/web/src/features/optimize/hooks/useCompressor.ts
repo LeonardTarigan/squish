@@ -15,10 +15,7 @@ export const useCompressor = () => {
 
   const downloadMutation = useMutateDownload()
 
-  const uploadMutation = useMutateUpload((id) => {
-    console.log('Upload success, received jobId:', id)
-    setJobId(id)
-  })
+  const uploadMutation = useMutateUpload((id) => setJobId(id))
 
   const { data: jobStatus, error: jobError } = useQueryJobStatus(jobId)
 

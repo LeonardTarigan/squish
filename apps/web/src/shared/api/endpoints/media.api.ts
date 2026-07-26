@@ -1,6 +1,7 @@
 import type { FileWithPath } from '@mantine/dropzone'
 import api from '../client'
-import type { ApiResponse, UploadResponse, } from '#/shared/types/api.types'
+import type { ApiResponse, UploadResponse } from '@squish/types'
+
 
 export const uploadImage = async (file: FileWithPath) => {
     const formData = new FormData()

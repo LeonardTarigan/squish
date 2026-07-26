@@ -1,5 +1,5 @@
-import type { ApiResponse, GetJobStatusResponse } from "#/shared/types/api.types"
 import api from "../client"
+import type { ApiResponse, GetJobStatusResponse } from '@squish/types'
 
 export const getJobStatus = async (jobId: string) => {
     const { data: response } = await api.get<ApiResponse<GetJobStatusResponse>>(`/jobs/${jobId}`)
