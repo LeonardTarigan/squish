@@ -87,8 +87,8 @@ export const useCompressor = () => {
 
   const isCompleted = jobStatus?.state === 'completed'
   const isFailed = jobStatus?.state === 'failed' || !!jobError
-  const isCompressing = uploadMutation.isPending || (!!jobId && !isCompleted && !isFailed)
-  const errorMessage = jobStatus?.failedReason || jobError?.message
+  const isCompressing = uploadMutation.isPending
+  const errorMessage = jobStatus?.failedReason
 
   return {
     file,

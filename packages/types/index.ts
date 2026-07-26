@@ -3,7 +3,7 @@ export interface JobPayload {
     inputPath: string
 }
 
-export type JobStatus = 'pending' | 'processing' | 'completed' | 'failed'
+export type JobStatus = 'active' | 'waiting' | 'delayed' | 'completed' | 'failed'
 
 export const QUEUE_NAME = 'image-jobs'
 
