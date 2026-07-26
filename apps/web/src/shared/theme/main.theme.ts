@@ -1,4 +1,4 @@
-import { Button, createTheme } from "@mantine/core";
+import { Button, createTheme, Paper } from "@mantine/core";
 import primaryColor from "./colors/primary.color";
 
 const mainTheme = createTheme({
@@ -14,6 +14,13 @@ const mainTheme = createTheme({
             defaultProps: {
                 bdrs: 'lg'
             },
+            styles: {
+                root: {
+                    cornerShape: 'squircle'
+                }
+            }
+        }),
+        Paper: Paper.extend({
             styles: {
                 root: {
                     cornerShape: 'squircle'
