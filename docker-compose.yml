@@ -1,12 +1,61 @@
 services:
   redis:
     image: redis:7-alpine
-    container_name: squish-redis
     ports:
       - "6379:6379"
     volumes:
-      - redis-data:/data
-    command: redis-server --save 60 1 --loglevel warning
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  api:
+    image: oven/bun:1
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    env_file:
+      - .env
+    command: sh -c "bun install && bun run --cwd apps/api dev"
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  worker:
+    image: oven/bun:1
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    env_file:
+      - .env
+    command: sh -c "bun install && bun run --cwd apps/worker dev"
+    restart: always
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  web:
+    image: oven/bun:1
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "${VITE_PORT}:3001"
+    env_file:
+      - .env
+    command: sh -c "bun install && bun run --cwd apps/web dev --host 0.0.0.0 --port 3001"
+    depends_on:
+      - api
 
 volumes:
-  redis-data:
+  redis_data:
