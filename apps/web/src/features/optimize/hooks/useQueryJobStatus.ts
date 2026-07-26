@@ -10,7 +10,16 @@ const useQueryJobStatus = (jobId: string | null) => {
             if (query.state.error) return false
 
             const state = query.state.data?.state
-            return state === 'completed' || state === 'failed' ? false : 1000
+            if (state === 'completed' || state === 'failed') return false
+
+            const attempt = Math.max(0, query.state.dataUpdateCount - 1)
+
+            const baseDelay = 1000
+            const maxDelay = 10000
+
+            const delay = Math.min(baseDelay * (1.5 ** attempt), maxDelay)
+
+            return delay
         },
     })
 }
