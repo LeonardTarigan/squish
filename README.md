@@ -1,9 +1,5 @@
 # 🍊 Squish!
 
-Squish is a highly responsive, asynchronous image compression pipeline. It provides a seamless user experience for uploading, compressing, and downloading WebP images without blocking the main browser thread or timing out HTTP requests.
-
-## 🚀 Brief Intro
-
 Squish solves the classic problem of heavy image processing on the web. Instead of forcing the user to wait on a single, long-running HTTP request (which can time out or degrade server performance), Squish utilizes a distributed queue architecture. The frontend orchestrates the flow using synthetic promises and polling, resulting in a buttery-smooth UX from drop to download.
 
 ## 💻 Tech Stack
@@ -22,6 +18,79 @@ Squish solves the classic problem of heavy image processing on the web. Instead 
 - **Queue System:** BullMQ (backed by Redis)
 - **Image Processing:** Sharp
 - **Tooling:** Bun
+
+## 🛠️ Installation & Setup
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- Bun (v1.0+)
+- Redis (Only required for Local Run)
+- Docker Desktop (Only required for Docker Compose Run)
+
+### 1. Clone & Install
+
+Clone the repository and install the dependencies at the monorepo root:
+
+```bash
+git clone https://github.com/LeonardTarigan/squish.git
+cd squish
+bun install
+```
+
+### 2. Environment Variables
+
+This project strictly isolates configuration using environment variables. You will need to set up .env files for the root and each individual workspace.
+
+Copy the provided `.env.example` files to `.env` in the following locations:
+
+```bash
+# 1. Root level (for Docker Compose)
+cp .env.example .env
+
+# 2. Frontend application
+cp apps/web/.env.example apps/web/.env
+
+# 3. Main API
+cp apps/api/.env.example apps/api/.env
+
+# 4. Background Worker
+cp apps/worker/.env.example apps/worker/.env
+```
+
+_(Make sure to open these new .env files and adjust any variables, like ports or API URLs, if necessary.)_
+
+### 3. Running the Application
+
+You have two options for running Squish: native local development (best for writing code) or Docker Compose (best for testing the full infrastructure).
+
+#### Option A: Local Run (Native)
+
+This method uses Turborepo to spin up all workspaces natively on your machine.
+
+1. Ensure your local Redis server is running:
+   ```bash
+   redis-server
+   ```
+2. Start the development server from the root of the project:
+   ```bash
+   bun run dev
+   ```
+
+#### Option B: Docker Compose Run
+
+This method spins up the entire stack in networked Docker containers using a single command.
+
+1. Start the Docker Compose stack in detached mode:
+   ```bash
+   bun run infra:up
+   ```
+2. Open your browser and navigate to the frontend URL.
+3. When you are done, gracefully spin down the infrastructure:
+   ```bash
+   bun run infra:down
+   ```
 
 ## 🏗️ Architecture
 
