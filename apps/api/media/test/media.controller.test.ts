@@ -32,7 +32,6 @@ describe('Media Controller API', () => {
             expect(json).toEqual({
                 data: { jobId: mockJobId },
             })
-
             expect(mediaService.uploadImageFile).toHaveBeenCalledTimes(1)
         })
 
@@ -65,7 +64,6 @@ describe('Media Controller API', () => {
             const res = await mediaController.request(req)
 
             expect(res.status).toBe(400)
-
             expect(mediaService.uploadImageFile).not.toHaveBeenCalled()
         })
 
@@ -87,6 +85,56 @@ describe('Media Controller API', () => {
             expect(res.status).toBe(500)
             expect(json).toEqual({ error: 'Internal server error during upload' })
             expect(logger.error).toHaveBeenCalled()
+        })
+    })
+
+    describe('GET /download/:fileId', () => {
+        it('should return 200 and stream the file with correct headers', async () => {
+            const mockFileId = 'a98b1014-3fc4-434f-8f48-83744f777f37'
+            const mockWebpBytes = new Uint8Array([1, 2, 3])
+            const mockFile = new File([mockWebpBytes], 'test.webp', { type: 'image/webp' })
+
+            spyOn(mediaService, 'getProcessedImage').mockResolvedValue(mockFile)
+
+            const req = new Request(`http://localhost/download/${mockFileId}`, {
+                method: 'GET',
+            })
+
+            const res = await mediaController.request(req)
+
+            expect(res.status).toBe(200)
+            expect(res.headers.get('Content-Type')).toBe('image/webp')
+            expect(res.headers.get('Content-Disposition')).toBe(`attachment; filename="${mockFileId}.webp"`)
+            expect(mediaService.getProcessedImage).toHaveBeenCalledWith(mockFileId)
+        })
+
+        it('should return 404 if the requested file does not exist', async () => {
+            const mockFileId = 'a98b1014-3fc4-434f-8f48-83744f777f37'
+            spyOn(mediaService, 'getProcessedImage').mockResolvedValue(null)
+
+            const req = new Request(`http://localhost/download/${mockFileId}`, {
+                method: 'GET',
+            })
+
+            const res = await mediaController.request(req)
+            const json = await res.json()
+
+            expect(res.status).toBe(404)
+            expect(json).toEqual({ error: 'File not found' })
+            expect(mediaService.getProcessedImage).toHaveBeenCalledWith(mockFileId)
+        })
+
+        it('should return 400 if the fileId is not a valid UUID', async () => {
+            const invalidFileId = 'invalid-uuid'
+
+            const req = new Request(`http://localhost/download/${invalidFileId}`, {
+                method: 'GET',
+            })
+
+            const res = await mediaController.request(req)
+
+            expect(res.status).toBe(400)
+            expect(mediaService.getProcessedImage).not.toHaveBeenCalled()
         })
     })
 })

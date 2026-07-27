@@ -36,7 +36,7 @@ mediaController.get(
         if (!file) return c.json({ error: 'File not found' }, 404)
 
         c.header('Content-Type', 'image/webp')
-        c.header('Content-Disposition', `attachment filename="${fileId}.webp"`)
+        c.header('Content-Disposition', `attachment; filename="${fileId}.webp"`)
 
         return c.body(file.stream())
     }
