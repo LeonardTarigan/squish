@@ -102,5 +102,7 @@ export const useCompressor = () => {
     clearFile,
     handleDownload,
     compressImage,
+    jobStatus: jobStatus?.state,
+    jobId: jobStatus?.jobId
   }
 }

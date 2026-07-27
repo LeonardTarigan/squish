@@ -12,6 +12,7 @@ import {
   Paper,
   ActionIcon,
   Box,
+  Badge, // <-- Imported Badge
 } from '@mantine/core'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 import type { FileRejection } from '@mantine/dropzone'
@@ -36,6 +37,8 @@ function OptimizePage() {
     clearFile,
     handleDownload,
     compressImage,
+    jobStatus,
+    jobId,
   } = useCompressor()
 
   const handleReject = (fileRejections: FileRejection[]) => {
@@ -52,6 +55,21 @@ function OptimizePage() {
     } else {
       gooeyToast.error(error.message || 'File was rejected.')
     }
+  }
+
+  const getStatusColor = () => {
+    if (isCompleted || jobStatus === 'completed') return 'green'
+    if (isFailed || jobStatus === 'failed') return 'red'
+    if (isCompressing || jobStatus === 'active') return 'blue'
+    return 'yellow'
+  }
+
+  const getStatusText = () => {
+    if (jobStatus) return jobStatus.toUpperCase()
+    if (isCompleted) return 'COMPLETED'
+    if (isFailed) return 'FAILED'
+    if (isCompressing) return 'PROCESSING'
+    return 'WAITING'
   }
 
   return (
@@ -158,6 +176,26 @@ function OptimizePage() {
             >
               <Text c="dimmed">No image selected</Text>
             </Flex>
+          )}
+
+          {/* --- NEW: Job ID and Status Bar --- */}
+          {jobId && (
+            <Group
+              justify="space-between"
+              bg="var(--mantine-color-gray-0)"
+              p="sm"
+              style={{ borderRadius: 'var(--mantine-radius-md)' }}
+            >
+              <Text size="sm" c="dimmed" fw={500}>
+                Job ID:{' '}
+                <Text span ff="monospace" c="dark">
+                  {jobId}
+                </Text>
+              </Text>
+              <Badge variant="light" color={getStatusColor()}>
+                {getStatusText()}
+              </Badge>
+            </Group>
           )}
 
           {isFailed && (
