@@ -15,8 +15,8 @@ describe('Job Controller API', () => {
             const mockJobId = '550e8400-e29b-41d4-a716-446655440000'
             const mockStatus = {
                 jobId: mockJobId,
-                state: 'completed',
-                result: null,
+                state: 'completed' as const,
+                result: { outputPath: '/path/to/file' },
                 failedReason: null,
             }
 

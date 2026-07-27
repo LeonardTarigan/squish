@@ -2,6 +2,7 @@ import { describe, expect, it, spyOn, beforeEach } from 'bun:test'
 import { logger } from '@squish/logger'
 import { mediaController } from '../media.controller'
 import mediaService from '../media.service'
+import type { BunFile } from 'bun'
 
 spyOn(logger, 'error').mockImplementation(() => { })
 
@@ -94,7 +95,7 @@ describe('Media Controller API', () => {
         it('should return 200 and stream the file with correct headers', async () => {
             const mockFileId = 'a98b1014-3fc4-434f-8f48-83744f777f37'
             const mockWebpBytes = new Uint8Array([1, 2, 3])
-            const mockFile = new File([mockWebpBytes], 'test.webp', { type: 'image/webp' })
+            const mockFile = new File([mockWebpBytes], 'test.webp', { type: 'image/webp' }) as BunFile
 
             spyOn(mediaService, 'getProcessedImage').mockResolvedValue(mockFile)
 

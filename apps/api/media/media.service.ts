@@ -18,7 +18,7 @@ const mediaService = {
         await queueInstance.add(
             jobName,
             { jobId, inputPath },
-            { 
+            {
                 jobId,
                 removeOnComplete: {
                     age: 3600,
