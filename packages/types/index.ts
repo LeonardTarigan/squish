@@ -7,6 +7,12 @@ export type JobStatus = 'active' | 'waiting' | 'delayed' | 'completed' | 'failed
 
 export const QUEUE_NAME = 'image-jobs'
 
+export const ACCEPTED_IMAGE_TYPES = [
+    'image/jpeg',
+    'image/png',
+    'image/webp'
+]
+
 export type ApiResponse<T> =
     | { data: T; error?: never }
     | { error: string; data?: never }

@@ -2,27 +2,28 @@ import { useCompressor } from '#/features/optimize/hooks/useCompressor'
 import BrandLogo from '#/shared/components/logo/BrandLogo'
 import { MAX_UPLOAD_FILE_SIZE } from '#/shared/constants/upload.constant'
 import {
+  ActionIcon,
+  Badge,
+  Box,
+  Button,
   Flex,
   Group,
+  Image,
+  Paper,
+  Stack,
   Text,
   Title,
-  Button,
-  Image,
-  Stack,
-  Paper,
-  ActionIcon,
-  Box,
-  Badge, // <-- Imported Badge
 } from '@mantine/core'
-import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 import type { FileRejection } from '@mantine/dropzone'
+import { Dropzone } from '@mantine/dropzone'
 import {
+  DownloadSimpleIcon,
   ImageIcon,
+  SparkleIcon,
   UploadSimpleIcon,
   XIcon,
-  DownloadSimpleIcon,
-  SparkleIcon,
 } from '@phosphor-icons/react'
+import { ACCEPTED_IMAGE_TYPES } from '@squish/types'
 import { gooeyToast } from 'goey-toast'
 
 function OptimizePage() {
@@ -85,7 +86,7 @@ function OptimizePage() {
         onDrop={handleDrop}
         onReject={handleReject}
         maxSize={MAX_UPLOAD_FILE_SIZE}
-        accept={IMAGE_MIME_TYPE}
+        accept={ACCEPTED_IMAGE_TYPES}
         maxFiles={1}
         bdrs="xl"
         disabled={isCompressing}
