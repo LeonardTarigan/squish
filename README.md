@@ -1,6 +1,6 @@
 # 🍊 Squish!
 
-Squish solves the classic problem of heavy image processing on the web. Instead of forcing the user to wait on a single, long-running HTTP request (which can time out or degrade server performance), Squish utilizes a distributed queue architecture. The frontend orchestrates the flow using synthetic promises and polling, resulting in a buttery-smooth UX from drop to download.
+Squish solves the classic problem of heavy image processing on the web. Instead of forcing the user to wait on a single, long-running HTTP request (which can time out or degrade server performance), Squish utilizes an asynchronous queue-based architecture. The frontend orchestrates the flow using synthetic promises and polling, resulting in a buttery-smooth UX from drop to download.
 
 ## 💻 Tech Stack
 
