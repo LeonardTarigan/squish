@@ -4,6 +4,7 @@ import requestValidator from '../common/validator/request.validator'
 import { fileUploadSchema } from '../media/schema/file-upload.schema'
 import mediaService from './media.service'
 import fileDownloadSchema from './schema/file-download.schema'
+import type { ApiResponse, UploadResponse } from '@squish/types'
 
 export const mediaController = new Hono()
 
@@ -16,14 +17,11 @@ mediaController.post(
 
             const jobId = await mediaService.uploadImageFile(image)
 
-            return c.json({
-                message: 'Upload successful, processing started',
-                data: { jobId }
-            })
+            return c.json<ApiResponse<UploadResponse>>({ data: { jobId } })
         } catch (error) {
             logger.error({ err: error }, 'Upload failed')
 
-            return c.json({ error: 'Internal server error during upload' }, 500)
+            return c.json<ApiResponse<UploadResponse>>({ error: 'Internal server error during upload' }, 500)
         }
     }
 )

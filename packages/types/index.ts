@@ -7,11 +7,9 @@ export type JobStatus = 'active' | 'waiting' | 'delayed' | 'completed' | 'failed
 
 export const QUEUE_NAME = 'image-jobs'
 
-export interface ApiResponse<T> {
-    message?: string
-    data: T
-    error?: string | null
-}
+export type ApiResponse<T> =
+    | { data: T; error?: never }
+    | { error: string; data?: never }
 
 export interface UploadResponse {
     jobId: string
