@@ -25,8 +25,5 @@
   },
   "peerDependencies": {
     "typescript": "^5"
-  },
-  "dependencies": {
-    "goey-toast": "^0.5.0"
   }
 }

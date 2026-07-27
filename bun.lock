@@ -1,12 +1,8 @@
 {
   "lockfileVersion": 1,
-  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "squish",
-      "dependencies": {
-        "goey-toast": "^0.5.0",
-      },
       "devDependencies": {
         "@types/bun": "latest",
         "turbo": "^2.10.5",
