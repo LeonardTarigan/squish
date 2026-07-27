@@ -29,9 +29,7 @@ describe('Media Controller API', () => {
             const json = await res.json()
 
             expect(res.status).toBe(200)
-            expect(json).toEqual({
-                data: { jobId: mockJobId },
-            })
+            expect(json).toEqual({ data: { jobId: mockJobId } })
             expect(mediaService.uploadImageFile).toHaveBeenCalledTimes(1)
         })
 
@@ -44,8 +42,10 @@ describe('Media Controller API', () => {
             })
 
             const res = await mediaController.request(req)
+            const json = await res.json()
 
             expect(res.status).toBe(400)
+            expect(json).toEqual({ error: 'An image file is required' })
             expect(mediaService.uploadImageFile).not.toHaveBeenCalled()
         })
 
@@ -62,8 +62,10 @@ describe('Media Controller API', () => {
             })
 
             const res = await mediaController.request(req)
+            const json = await res.json()
 
             expect(res.status).toBe(400)
+            expect(json).toEqual({ error: 'Invalid file type. Only JPG, PNG, and WebP are supported' })
             expect(mediaService.uploadImageFile).not.toHaveBeenCalled()
         })
 
@@ -132,8 +134,10 @@ describe('Media Controller API', () => {
             })
 
             const res = await mediaController.request(req)
+            const json = await res.json()
 
             expect(res.status).toBe(400)
+            expect(json).toEqual({ error: 'Invalid UUID' })
             expect(mediaService.getProcessedImage).not.toHaveBeenCalled()
         })
     })
