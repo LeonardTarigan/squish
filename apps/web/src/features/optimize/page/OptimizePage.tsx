@@ -179,7 +179,6 @@ function OptimizePage() {
             </Flex>
           )}
 
-          {/* --- NEW: Job ID and Status Bar --- */}
           {jobId && (
             <Group
               justify="space-between"
