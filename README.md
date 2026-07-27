@@ -117,7 +117,7 @@ sequenceDiagram
     A-->>C: Return { jobId }
 
     Note over C, A: Client enters polling state
-    loop Every 1000ms
+    loop Polling with Exponential Backoff (up to 10s)
         C->>A: GET /jobs/{jobId}
         A-->>C: Return { state: 'waiting' | 'active' }
     end
